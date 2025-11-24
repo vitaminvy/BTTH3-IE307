@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useRouter } from "expo-router";
+import { useRouter, type Href } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useAuth } from "@/contexts/auth-context";
 import { useSettings } from "@/contexts/SettingsContext";
@@ -21,6 +21,7 @@ export default function LoginScreen() {
   const [error, setError] = useState("");
   const { login } = useAuth();
   const { colors, fontSize } = useSettings();
+  const notesHref = "/(notes)/(tabs)" as Href;
 
   const styles = useMemo(
     () =>
@@ -255,10 +256,7 @@ export default function LoginScreen() {
               </TouchableOpacity>
             </View>
             <View style={{ marginTop: 20 }}>
-              <TouchableOpacity
-                onPress={() => router.replace("/(notes)")}
-                style={styles.gotoBtn}
-              >
+              <TouchableOpacity onPress={() => router.replace(notesHref)} style={styles.gotoBtn}>
                 <Text style={styles.gotoText}>Đi tới Bài 2</Text>
               </TouchableOpacity>
             </View>

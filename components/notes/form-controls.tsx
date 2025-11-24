@@ -1,4 +1,5 @@
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { useMemo } from "react";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import { useSettings } from "@/contexts/SettingsContext";
@@ -19,20 +20,30 @@ export function NoteField({
   height = 120,
 }: NoteFieldProps) {
   const { colors, fontSize } = useSettings();
-
-  return (
-    <View style={{ gap: 6 }}>
-      <Text style={{ fontSize: fontSize + 2, color: colors.text }}>{label}</Text>
-      <TextInput
-        style={{
+  const styles = useMemo(
+    () =>
+      StyleSheet.create({
+        wrapper: { gap: 6 },
+        label: { fontSize: fontSize + 2, color: colors.text },
+        input: {
           borderWidth: 1,
           padding: 10,
           borderColor: colors.border,
           color: colors.text,
           backgroundColor: colors.surface,
           textAlignVertical: multiline ? "top" : "center",
+          fontSize,
           height: multiline ? height : undefined,
-        }}
+        },
+      }),
+    [colors, fontSize, multiline, height]
+  );
+
+  return (
+    <View style={styles.wrapper}>
+      <Text style={styles.label}>{label}</Text>
+      <TextInput
+        style={styles.input}
         value={value}
         onChangeText={onChangeText}
         multiline={multiline}
@@ -54,24 +65,32 @@ export function SaveCancelActions({
   saveLabel = "Lưu",
   cancelLabel = "Hủy",
 }: SaveCancelActionsProps) {
-  const { colors } = useSettings();
+  const { colors, fontSize } = useSettings();
+  const styles = useMemo(
+    () =>
+      StyleSheet.create({
+        row: {
+          flexDirection: "row",
+          justifyContent: "center",
+          gap: 24,
+          marginTop: 10,
+        },
+        iconLabel: { marginTop: 4, fontSize },
+        saveLabel: { color: colors.accent },
+        cancelLabel: { color: colors.danger },
+      }),
+    [colors, fontSize]
+  );
 
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        justifyContent: "center",
-        gap: 24,
-        marginTop: 10,
-      }}
-    >
+    <View style={styles.row}>
       <TouchableOpacity onPress={onSave} style={{ alignItems: "center" }}>
         <Ionicons name="save-outline" size={32} color={colors.accent} />
-        <Text style={{ color: colors.accent, marginTop: 4 }}>{saveLabel}</Text>
+        <Text style={[styles.iconLabel, styles.saveLabel]}>{saveLabel}</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={onCancel} style={{ alignItems: "center" }}>
         <Ionicons name="close-circle-outline" size={32} color={colors.danger} />
-        <Text style={{ color: colors.danger, marginTop: 4 }}>
+        <Text style={[styles.iconLabel, styles.cancelLabel]}>
           {cancelLabel}
         </Text>
       </TouchableOpacity>

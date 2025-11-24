@@ -7,7 +7,7 @@ import {
   deleteNote,
   getAllNotes,
   type NoteRecord,
-} from "../../src/database/database";
+} from "../../../src/database/database";
 import { useSettings } from "@/contexts/SettingsContext";
 
 export default function NotesHome() {

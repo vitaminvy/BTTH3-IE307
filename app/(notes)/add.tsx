@@ -1,5 +1,5 @@
-import { View, Alert } from "react-native";
-import { useState } from "react";
+import { View, Alert, StyleSheet } from "react-native";
+import { useMemo, useState } from "react";
 import { useRouter } from "expo-router";
 
 import { insertNote } from "../../src/database/database";
@@ -11,6 +11,18 @@ export default function AddNote() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const { colors } = useSettings();
+  const styles = useMemo(
+    () =>
+      StyleSheet.create({
+        container: {
+          padding: 20,
+          backgroundColor: colors.background,
+          flex: 1,
+          gap: 8,
+        },
+      }),
+    [colors.background]
+  );
 
   function saveNote() {
     if (!title.trim()) {
@@ -27,14 +39,7 @@ export default function AddNote() {
   }
 
   return (
-    <View
-      style={{
-        padding: 20,
-        backgroundColor: colors.background,
-        flex: 1,
-        gap: 8,
-      }}
-    >
+    <View style={styles.container}>
       <NoteField label="Title" value={title} onChangeText={setTitle} />
       <NoteField
         label="Content"

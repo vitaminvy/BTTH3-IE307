@@ -1,7 +1,7 @@
 import { Stack } from "expo-router";
 import { useSettings } from "@/contexts/SettingsContext";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { TouchableOpacity, Text } from "react-native";
+import { TouchableOpacity } from "react-native";
 
 export default function NotesStack() {
   const { colors } = useSettings();
@@ -15,7 +15,7 @@ export default function NotesStack() {
 
   return (
     <Stack screenOptions={baseOptions}>
-      <Stack.Screen name="index" options={{ title: "Home" }} />
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen
         name="add"
         options={({ navigation }) => ({
@@ -32,7 +32,6 @@ export default function NotesStack() {
               }}
             >
               <Ionicons name="arrow-back" size={22} color={colors.text} />
-              <Text style={{ color: colors.text, fontSize: 16 }}>Cancel</Text>
             </TouchableOpacity>
           ),
         })}
@@ -53,7 +52,6 @@ export default function NotesStack() {
               }}
             >
               <Ionicons name="arrow-back" size={22} color={colors.text} />
-              <Text style={{ color: colors.text, fontSize: 16 }}>Cancel</Text>
             </TouchableOpacity>
           ),
         })}

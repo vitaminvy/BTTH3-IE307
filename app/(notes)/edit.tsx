@@ -1,4 +1,4 @@
-import { View, Alert } from "react-native";
+import { View, Alert, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
 import { useRoute, type RouteProp, type ParamListBase } from "@react-navigation/native";
 import { useMemo, useState } from "react";
@@ -31,6 +31,18 @@ export default function EditNote() {
   const [content, setContent] = useState(
     typeof initialContent === "string" ? initialContent : ""
   );
+  const styles = useMemo(
+    () =>
+      StyleSheet.create({
+        container: {
+          padding: 20,
+          backgroundColor: colors.background,
+          flex: 1,
+          gap: 8,
+        },
+      }),
+    [colors.background]
+  );
 
   function updateNote() {
     if (noteId == null) {
@@ -51,14 +63,7 @@ export default function EditNote() {
   }
 
   return (
-    <View
-      style={{
-        padding: 20,
-        backgroundColor: colors.background,
-        flex: 1,
-        gap: 8,
-      }}
-    >
+    <View style={styles.container}>
       <NoteField label="Title" value={title} onChangeText={setTitle} />
       <NoteField
         label="Content"
