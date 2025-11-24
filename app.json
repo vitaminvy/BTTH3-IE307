@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "BTTH_23521827",
-    "slug": "BTTH_23521827",
+    "name": "BTTH3.1_23521827",
+    "slug": "BTTH3.1_23521827",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -38,7 +38,8 @@
             "backgroundColor": "#000000"
           }
         }
-      ]
+      ],
+      "expo-sqlite"
     ],
     "experiments": {
       "typedRoutes": true,
